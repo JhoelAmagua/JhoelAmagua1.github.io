@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POKEMON</title>
+    <link rel="stylesheet" href="estilos.css">
+
+</head>
+<body>
+    <h1 class="tittle">BATALLA POKÉMON</h1>
+
+    <div class="row">
+        <div class="pokemon-list" id="listarpokemon">
+            <div class="col-4">
+                <div class="pokemon" id="pok-1">
+                    <img style="min-width: 100px">
+                    <p class="name"></p>
+
+                    <div class="pokemon" id="pok-3">
+                        <img style="min-width: 100px">
+                        <p class="name"></p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-4 vs">
+                <div>VS</div>
+            </div>
+
+            <div class="col-4">
+                <div class="pokemon" id="pok-2">
+                    <img style="min-width: 100px">
+                    <p class="name"></p>
+
+                    <div class="pokemon" id="pok-4">
+                        <img style="min-width: 100px">
+                        <p class="name"></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+            <button onclick="consultarPokemones()" >COMENZAR</button>
+<br><br>
+        <h4 class="names">INTEGRANTES:
+                    <span>Amagua Jhoel - </span>
+                    <span>Soto Wendy</span>
+                </h4>
+    </div>
+
+    <script>
+        let lista = document.getElementById("listarpokemon");
+        
+        function consultarPokemon(id, number) {
+            fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+            .then( res =>{
+                console.log(res);
+                res.json()
+                .then(pokemon=>{
+                    console.log(pokemon);
+                    mostrarPokemon(pokemon,number)
+                })
+            })
+        }
+
+        function consultarPokemones() {
+            let primerPokemon = Math.round(Math.random() * 150);
+            console.log(primerPokemon);
+            let segundoPokemon = Math.round(Math.random() * 150);
+            console.log(segundoPokemon);
+            let tercerPokemon = Math.round(Math.random() * 150);
+            console.log(tercerPokemon);
+            let cuartoPokemon = Math.round(Math.random() * 150);
+            console.log(cuartoPokemon);
+            consultarPokemon(primerPokemon, 1);
+            consultarPokemon(segundoPokemon, 2);
+            consultarPokemon(tercerPokemon, 3);
+            consultarPokemon(cuartoPokemon, 4);
+        }
+
+        function mostrarPokemon(pokemon, id) {
+
+            let item = lista.querySelector(`#pok-${id}`);
+
+            let img = item.getElementsByTagName("img")[0].setAttribute("src", pokemon.sprites.front_default);
+
+            let nombre = item.getElementsByTagName("p")[0].innerHTML = pokemon.name;
+        }
+
+        consultarPokemones();
+
+
+// https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_document_getelementsbytagname2
+// https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_document_queryselector
+// https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_element_setattribute1
+
+</script>  
+</body>
+</html>
